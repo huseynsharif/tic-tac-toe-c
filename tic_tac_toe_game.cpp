@@ -8,7 +8,8 @@
 
 char places[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 bool isEmpty[9] = {true, true, true, true, true, true, true, true, true};
-int player = 2;
+int player = 1;
+void *t;
 
 void heading(){
 	system("cls");
@@ -38,11 +39,9 @@ void restart(){
 	}
 }
 
-void *t;
-
 void move(){
 
-	printf("PLAYER %d! Tab the number of square... ", player);
+	printf("PLAYER %d! Tab the number of the square... ", player);
 	int choise = getch() - '0';
 	char mark = (!(player-1)) ? 'X' : 'O';
 	if(isEmpty[choise-1] && (choise > 0 && choise < 10)){
@@ -51,6 +50,7 @@ void move(){
 	}
 	else{
 		printf(" Invalid move!");
+		PlaySound(TEXT("invalidmove.wav"), NULL, SND_SYNC);
 		getch();
 		goto *t;
 	}
@@ -82,14 +82,15 @@ bool checkWin(){
 	else{
 		return false;
 	}
- 
+
 }
+
+
 
 int main(){
 	system("color 17");
 	t = &&Start;
 	while(true){
-		player = (player % 2) ? 2 : 1;
 		
 		Start:
 		heading();
@@ -114,7 +115,8 @@ int main(){
 			getch();
 			restart();
 		}
-
+		
+		player = (player % 2) ? 2 : 1;
 	}
 	
 	return 0;
