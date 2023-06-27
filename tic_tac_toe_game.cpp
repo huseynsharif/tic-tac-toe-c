@@ -61,7 +61,7 @@ bool isFull(){
 		if(isEmpty[i]){
 			return false;
 		}
-	}
+	} 
 	return true;
 }
 
