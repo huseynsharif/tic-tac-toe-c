@@ -11,12 +11,26 @@ bool isEmpty[9] = {true, true, true, true, true, true, true, true, true};
 int player = 1;
 void *t;
 
+
 void heading(){
 	system("cls");
 	printf("TIC TAC TOE\n");
 	printf("<<<<<<>>>>>>\n\n");
-	printf("PLAYER 1 - X, PLAYER 2 - O\n\n\n");
+	
 
+}
+
+void homepage(){
+	printf("TIC TAC TOE\n");
+	printf("<<<<<<>>>>>>\n\n");
+	printf("PLAYER 1 - X, PLAYER 2 - O\n\n");
+	printf("Tab the number of square that you want to move.\n\n");
+	printf("Tab zero to exit the game.\n\n");
+	printf("---------------------------\n\n");
+	printf("Tab any key to start the game...");
+	getch();
+	
+	
 }
 
 void board(){
@@ -41,15 +55,21 @@ void restart(){
 
 void move(){
 
-	printf("PLAYER %d! Tab the number of the square... ", player);
+	printf("PLAYER %d! Tab the number of the square...", player);
 	int choise = getch() - '0';
 	char mark = (!(player-1)) ? 'X' : 'O';
+
+	if(choise==0){
+		exit(0);
+	}
+		 
+	
 	if(isEmpty[choise-1] && (choise > 0 && choise < 10)){
 		places[choise-1] = mark;
 		isEmpty[choise-1] = false;
 	}
 	else{
-		printf(" Invalid move!");
+		printf("\n\n-> Invalid move!");
 		PlaySound(TEXT("invalidmove.wav"), NULL, SND_SYNC);
 		getch();
 		goto *t;
@@ -82,21 +102,17 @@ bool checkWin(){
 	else{
 		return false;
 	}
-
 }
-
-
 
 int main(){
 	system("color 17");
 	t = &&Start;
+	homepage();
+	Start:
 	while(true){
-		
-		Start:
 		heading();
 		board();
 		move();
-		
 		
 		if(checkWin()){
 			system("cls");
@@ -118,6 +134,7 @@ int main(){
 		
 		player = (player % 2) ? 2 : 1;
 	}
-	
+
+	getch();
 	return 0;
 }
